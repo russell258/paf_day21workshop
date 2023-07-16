@@ -42,6 +42,7 @@ public class CustomerRepository {
     public Customer getByIdCustomer(Integer id){
         Customer c = jdbc.queryForObject(findByIdSQL, BeanPropertyRowMapper.newInstance(Customer.class),id);
         // how to handle exception here, exception auto throws above
+        // can use try catch throw new EmptyResultDataAccessException
         if (c==null){
             throw new IllegalArgumentException("Customer by id: " + id + " not found");
         }
