@@ -27,7 +27,7 @@ public class CustomerController {
     }
 
     @GetMapping("/limit")
-    public List<Customer> getCustomersLimitOffset(@RequestParam("limit") int limit, @RequestParam("offset") int offset){
+    public List<Customer> getCustomersLimitOffset(@RequestParam(value = "limit", required=false, defaultValue = "5") int limit, @RequestParam("offset") int offset){
         return cSvc.getCustomerLimitOffset(limit, offset);
     }
 
