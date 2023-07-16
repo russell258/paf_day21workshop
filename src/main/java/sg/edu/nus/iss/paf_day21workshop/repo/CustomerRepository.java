@@ -18,7 +18,7 @@ public class CustomerRepository {
     private final String findAllSQL = "select * from customers";
     // how to set default for limit to 5 and offset to 0?
     private final String offsetSQL = "select * from customers limit ? offset ?";
-    private final String findByIdSQL = "select * from customers where customer_id = ?";
+    private final String findByIdSQL = "select * from customers where id = ?";
 
     public List<Customer> getAllCustomers(){
         List<Customer> customerList = new ArrayList<Customer>();
@@ -41,7 +41,10 @@ public class CustomerRepository {
 
     public Customer getByIdCustomer(Integer id){
         Customer c = jdbc.queryForObject(findByIdSQL, BeanPropertyRowMapper.newInstance(Customer.class),id);
-        // how to handle exception here
+        // how to handle exception here, exception auto throws above
+        if (c==null){
+            throw new IllegalArgumentException("Customer by id: " + id + " not found");
+        }
         return c;
     }
 
